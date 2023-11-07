@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next-auth/upstash-redis-adapter": "^3.0.4",
     "@upstash/redis": "^1.24.3",
     "class-variance-authority": "^0.7.0",
     "next": "13.5.4",
