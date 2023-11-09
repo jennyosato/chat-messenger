@@ -1,8 +1,9 @@
+
 import { authOptions } from '@/lib/auth'
 import React from 'react'
 import { getServerSession } from 'next-auth'
 
-const page = async() => {
+const Page = async() => {
    const session  = await getServerSession(authOptions)
    console.log(session)
   return (
@@ -12,4 +13,5 @@ const page = async() => {
   )
 }
 
-export default page
+
+export default Page
