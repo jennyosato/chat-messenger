@@ -14,7 +14,7 @@ const page: FC<pageProps> = ({}) => {
         e.preventDefault()
         setIsLoading(true)
         try{
-         await axios.post('/api/friends/add/route',{email})
+         await axios.post('/api/friends/add',{email})
          console.log('sent')
         }catch(error){
         console.log(error)

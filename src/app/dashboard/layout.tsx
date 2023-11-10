@@ -12,3 +12,4 @@ const Layout =  async({children}:LayoutProps) => {
         </div>
     )
 }
+export default Layout
