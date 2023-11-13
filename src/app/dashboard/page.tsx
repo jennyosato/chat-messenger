@@ -18,10 +18,10 @@ export default async function Page() {
     }
   };
   return (
-    <div className="text-red-500 text-3xl font-bold">
+    <div className="text-red-500 text-3xl font-bold container bg-green-500">
       Hello World
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-    <SignOutButton />
+      {/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
+    
     </div>
   );
 }
