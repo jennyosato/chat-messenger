@@ -17,6 +17,7 @@ export async function fetchRedis(
   });
 
   if (!response.ok) {
+    console.log(response)
     throw new Error(`Error executing Redis command: ${response.statusText}`);
   }
   const data = await response.json();
