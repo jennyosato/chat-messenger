@@ -3,6 +3,7 @@ import getSession from "@/lib/getSession";
 import { fetchRedis } from "@/lib/redisFetch";
 import ChatForm from "@/components/ChatForm";
 import Image from "next/image";
+
 interface Props {
   id: string;
 }
@@ -42,7 +43,7 @@ const page = async ({ params }: Props) => {
     );
   });
   return (
-    <div className="w-full bg-red-400">
+    <div className="w-full bg-white">
       <div className="relative flex flex-col justify-between w-9/12  max-h-screen ">
         <div className="sticky top-0 left-0 w-full bg-white h-[80px] py-1 flex gap-2 item-center">
           <div>
@@ -51,6 +52,7 @@ const page = async ({ params }: Props) => {
               alt={chatPartner.name}
               width={50}
               height={50}
+              referrerPolicy="no-referrer"
               className="rounded-full object-cover"
             />
           </div>
