@@ -2,7 +2,9 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import { SendHorizontal } from "lucide-react";
 import axios from "axios";
-import {io} from 'socket.io-client'
+import { pusherClient } from "@/lib/pusher";
+import { convertPusherKey } from "@/utils/helpers";
+
 
 interface ChatFormProps {
   id: string,
@@ -10,7 +12,8 @@ interface ChatFormProps {
 }
 
 const ChatForm = ({ id, session }: ChatFormProps) => {
-  // const socket = io()
+ 
+  
   const initialMsg = {
     sender: session.id,
     message: '',
@@ -19,33 +22,26 @@ const ChatForm = ({ id, session }: ChatFormProps) => {
   const [msg, setMsg] = useState<Message>(initialMsg);
   const [chatMessages, setChatMessages] = useState<Message[]>([])
 
-//  useEffect(() => {
-//   socket.on('dbMessages', (messages) =>{
-//     setChatMessages(messages)
-//   })
-//   socket.on('message', (message: Message) =>{
-//     setChatMessages(prev => [...prev, message])
-//   })
-//   return () =>{
-//     socket.disconnect()
-//   }
-//  },[])
-  const handleSubmit = (e:FormEvent) => {
+ useEffect(() => {
+pusherClient.subscribe(convertPusherKey(`user:`))
+ 
+ },[])
+  const handleSubmit = async(e:FormEvent) => {
     e.preventDefault()
-    // socket.emit('message', msg)
+    
     setMsg(initialMsg);
     console.log(chatMessages)
-    // try {
-    //   const res = await axios.post("/api/chats/send", { id, msg });
-    //   setMsg(initialMsg);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const res = await axios.post("/api/chats/send", { id, msg });
+      setMsg(initialMsg);
+    } catch (error) {
+      console.log(error);
+    }
     
   };
   return (
     <>
-    <div>
+    <div className="bg-blue-500">
       <h2>Hello World</h2>
       {chatMessages.map((msg, index) => (<div key={index}>{msg.message}</div>))}
     </div>
@@ -55,6 +51,7 @@ const ChatForm = ({ id, session }: ChatFormProps) => {
           className="py-2 px-3 text-xs rounded-md outline-none border border-gray-200 h-auto w-full"
           placeholder="Enter message"
           autoFocus
+          value={msg.message}
           onChange={(e) => setMsg((prev) => ({...prev, message: e.target.value, time: new Date().toLocaleTimeString()}))}
         />
         <button>

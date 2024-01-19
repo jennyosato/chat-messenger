@@ -15,7 +15,12 @@ export default async function Page() {
     "smembers",
     `user:${session?.user.id}:friends`
   )) as string[];
+  const requests = (await fetchRedis(
+    "smembers",
+    `user:${session?.user.id}:friend_request`
+  )) as string[];
 
+  
   const friendsList = await Promise.all(
     friends.map(async (id) => {
       const req = await fetchRedis("get", `user:${id}`);
@@ -68,7 +73,12 @@ export default async function Page() {
           </button>
         </div>
         {/* friendlist */}
+        <button className="text-right text-purple-800">Friends List</button>
         <div>{friendsList}</div>
+        <div className="flex items-center">
+          <p>Requests</p>
+          {requests.length ? <span className="flex justify-center items-center w-5 h-5 rounded-full bg-purple-900 text-white font-semibold">{requests.length}</span>: null}
+        </div>
       </div>
       {/* Chat section */}
       <div className="p-5 flex flex-col gap-4 w-full ">
@@ -79,6 +89,7 @@ export default async function Page() {
 
         </div>
       </div>
+      <SignOutButton />
     </div>
   );
 }

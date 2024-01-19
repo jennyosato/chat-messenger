@@ -2,6 +2,8 @@ import { fetchRedis } from "@/lib/redisFetch";
 import { db } from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { pusherServer } from "@/lib/pusher";
+import { convertPusherKey } from "@/utils/helpers";
 
 export async function POST(req: Response) {
   try {
@@ -56,7 +58,16 @@ export async function POST(req: Response) {
         status: 400,
       });
     }
-
+    pusherServer.trigger(
+      convertPusherKey(`user:${userIdToAdd}:friend_request`),
+      "friend_request",
+      {
+        id: session.user.id,
+        email: session.user.email,
+        image: session.user.image,
+        name: session.user.name,
+      }
+    );
     db.sadd(`user:${session.user.id}:sent_friend_request`, userIdToAdd);
     db.sadd(`user:${userIdToAdd}:friend_request`, session.user.id);
     return new Response("Friend request sent successfully", { status: 200 });

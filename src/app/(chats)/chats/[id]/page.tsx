@@ -5,17 +5,18 @@ import ChatForm from "@/components/ChatForm";
 import Image from "next/image";
 
 interface Props {
-  id: string;
+  params: {
+    id: string;
+  }
+  
 }
 
 const page = async ({ params }: Props) => {
   const { id } = params;
-  // console.log(id)
-  const chatIds = id.split("_");
-  const sender = chatIds[0];
-  const receiver = chatIds[1];
+
+  const [sender, receiver] = id.split("_");
+ 
   const { session } = await getSession();
-  // console.log(session?.user)
   const partner = await fetchRedis("get", `user:${receiver}`);
   const chatPartner: User = JSON.parse(partner);
   const chats: string[] = (await fetchRedis(

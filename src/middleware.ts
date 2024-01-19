@@ -33,5 +33,5 @@ export default withAuth(
   }
 );
 export const config = {
-  matcher: ["/", "/login", "/:path*"],
+  matcher: ["/", "/login", "/chats/:path*","/:path*" ],
 };

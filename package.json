@@ -13,19 +13,19 @@
     "@upstash/redis": "^1.24.3",
     "axios": "^1.6.1",
     "class-variance-authority": "^0.7.0",
+    "encoding": "^0.1.13",
     "lucide-react": "^0.292.0",
     "next": "13.5.4",
     "next-auth": "^4.24.4",
+    "pusher": "^5.2.0",
+    "pusher-js": "^8.4.0-rc2",
     "react": "^18",
-    "react-dom": "^18",
-    "socket.io": "^4.7.4",
-    "socket.io-client": "^4.7.4"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/socket.io-client": "^3.0.0",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
